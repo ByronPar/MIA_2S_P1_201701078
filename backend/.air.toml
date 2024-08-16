@@ -1,0 +1,9 @@
+[build]
+cmd = "go run main.go"  # Comando para ejecutar tu aplicación
+bin = "tmp/main"       # Directorio donde se guardará el binario temporal
+include_dir = ["."]
+exclude_dir = ["tmp", "vendor"]  # Directorios a excluir de la observación
+
+[log]
+time = "2006-01-02 15:04:05"
+format = "json"
