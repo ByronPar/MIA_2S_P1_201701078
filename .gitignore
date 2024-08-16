@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 dist/
 tmp/
 app/**/*.js
@@ -30,6 +31,8 @@ e2e/*.map
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
+=======
+>>>>>>> a00aef95374e50adefb1f6b14a0b29852f3c9bf7
 *.orig
 
 # Created by git when using merge tools for conflicts
@@ -269,6 +272,7 @@ fabric.properties
 modules.xml
 .idea/misc.xml
 *.ipr
+<<<<<<< HEAD
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -580,3 +584,5 @@ modules.xml
 ### WebStorm+all Patch ###
 # Ignore everything but code style settings and run configurations
 # that are supposed to be shared within teams.
+=======
+>>>>>>> a00aef95374e50adefb1f6b14a0b29852f3c9bf7
