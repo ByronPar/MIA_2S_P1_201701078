@@ -1660,11 +1660,11 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 
 	if master_boot_record.Mbr_tamano != empty {
 		if err == nil {
-			graphDot += "digraph G{\\n\\n"
-			graphDot += "  tbl [\\n    shape=box\\n    label=<\\n"
-			graphDot += "     <table border='0' cellborder='2' width='600' height=\\\"150\\\" color='dodgerblue1'>\\n"
-			graphDot += "     <tr>\\n"
-			graphDot += "     <td height='150' width='110'> MBR </td>\\n"
+			graphDot += "digraph G{"
+			graphDot += "  tbl [   shape=box    label=<"
+			graphDot += "     <table border='0' cellborder='2' width='600' height='150' color='dodgerblue1'>"
+			graphDot += "     <tr>"
+			graphDot += "     <td height='150' width='110'> MBR </td>"
 
 			// Obtengo el espacio utilizado
 			s_mbr_tamano := string(master_boot_record.Mbr_tamano[:])
@@ -1710,7 +1710,7 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 						s_part_type = strings.Trim(s_part_type, "\x00")
 
 						if s_part_type == "p" {
-							graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Primaria <br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+							graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Primaria <br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 
 							if i != 3 {
 								// Obtengo el espacio utilizado
@@ -1741,7 +1741,7 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 										porcentaje_real = float64(fragmentacion) * 100 / float64(total)
 										porcentaje_aux = (porcentaje_real * 500) / 100
 
-										graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+										graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 									}
 								}
 							} else {
@@ -1767,13 +1767,13 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 									libre := (float64(mbr_size) - float64(p1)) + float64(len(mbr_empty_byte))
 									porcentaje_real = (float64(libre) * 100) / float64(total)
 									porcentaje_aux = (porcentaje_real * 500) / 100
-									graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+									graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 								}
 							}
 						} else {
 							// Si es extendida
-							graphDot += "     <td  height='200' width='" + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + "'>\\n     <table border='0'  height='200' WIDTH='" + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + "' cellborder='1'>\\n"
-							graphDot += "     <tr>  <td height='60' colspan='15'>Extendida</td>  </tr>\\n     <tr>\\n"
+							graphDot += "     <td  height='200' width='" + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + "'>     <table border='0'  height='200' WIDTH='" + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + "' cellborder='1'>"
+							graphDot += "     <tr>  <td height='60' colspan='15'>Extendida</td>  </tr>     <tr>"
 
 							// Obtengo el espacio utilizado
 							s_part_start := string(master_boot_record.Mbr_partition[i].Part_start[:])
@@ -1859,11 +1859,11 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 										s_part_status = strings.Trim(s_part_status, "\x00")
 
 										if s_part_status != "1" {
-											graphDot += "     <td height='140'>EBR</td>\\n"
-											graphDot += "     <td height='140'>Logica<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+											graphDot += "     <td height='140'>EBR</td>"
+											graphDot += "     <td height='140'>Logica<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 										} else {
 											// Espacio no asignado
-											graphDot += "      <td height='150'>Libre 1 <br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+											graphDot += "      <td height='150'>Libre 1 <br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 										}
 
 										// Obtengo el espacio utilizado
@@ -1901,7 +1901,7 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 											porcentaje_real = (float64(parcial) * 100) / float64(total)
 
 											if porcentaje_real != 0 {
-												graphDot += "     <td height='150'>Libre 2<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+												graphDot += "     <td height='150'>Libre 2<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 											}
 											break
 
@@ -1918,9 +1918,9 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 
 								}
 							} else {
-								graphDot += "     <td height='140'> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+								graphDot += "     <td height='140'> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 							}
-							graphDot += "     </tr>\\n     </table>\\n     </td>\\n"
+							graphDot += "     </tr>     </table>    </td>"
 
 							// Verifica que no haya espacio fragemntado
 							if i != 3 {
@@ -1952,7 +1952,7 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 										porcentaje_real = float64(fragmentacion) * 100 / float64(total)
 										porcentaje_aux = (porcentaje_real * 500) / 100
 
-										graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+										graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 									}
 								}
 							} else {
@@ -1978,17 +1978,17 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 									libre := (float64(mbr_size) - float64(p1)) + float64(len(mbr_empty_byte))
 									porcentaje_real = (float64(libre) * 100) / float64(total)
 									porcentaje_aux = porcentaje_real * 500 / 100
-									graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+									graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 								}
 							}
 						}
 					} else {
-						graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>\\n"
+						graphDot += "     <td height='200' width='" + strconv.FormatFloat(porcentaje_aux, 'g', 3, 64) + "'>Libre<br/> " + strconv.FormatFloat(porcentaje_real, 'g', 3, 64) + " por ciento del Disco </td>"
 					}
 				}
 			}
 
-			graphDot += "     </tr> \\n     </table>        \\n>];\\n\\n}"
+			graphDot += "     </tr>      </table>        >];}"
 			return graphDot
 		} else {
 			return "[ERROR-REP] El disco no fue encontrado."

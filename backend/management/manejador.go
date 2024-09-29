@@ -39,16 +39,22 @@ func split_comando(comando string) {
 	comando = strings.Replace(comando, "\r", "", 1)
 	// Banderas para verficar comentarios
 	band_comentario := false
+	band_blanco := false
 	if strings.Contains(comando, "#") {
 		// Comentario
 		band_comentario = true
-		fmt.Println(comando)
+		//fmt.Println(comando)
+		strRespuesta = strRespuesta + "\n[COMENTARIO]" + comando
 	} else {
 		// Comando con Parametros
 		commandArray = strings.Split(comando, " -")
 	}
+
+	if comando == "" {
+		band_blanco = true
+	}
 	// Ejecuta el comando leido si no es un comentario
-	if !band_comentario {
+	if !band_comentario && !band_blanco {
 		ejecutar_comando(commandArray)
 	}
 }
@@ -72,7 +78,7 @@ func ejecutar_comando(commandArray []string) {
 	} else if data == "rep" {
 		strRespuesta = strRespuesta + "\n" + rep(commandArray)
 	} else {
-		strRespuesta = strRespuesta + "\n" + "[ERROR] El comando no fue reconocido..."
+		strRespuesta = strRespuesta + "\n" + "[ERROR] El comando no fue reconocido. -> " + data
 	}
 }
 
@@ -340,9 +346,9 @@ func rmdisk(commandArray []string) string {
 		/* PARAMETRO OBLIGATORIO -> PATH */
 		case strings.Contains(data, "path="):
 			if band_path {
-				fmt.Println("[ERROR-RMDISK] El parametro -path ya fue ingresado...")
-				band_error = true
-				break
+				return "[ERROR-RMDISK] El parametro -path ya fue ingresado..."
+				//band_error = true
+				//break
 			}
 			// Activo la bandera del parametro
 			band_path = true
@@ -429,7 +435,7 @@ func fdisk(commandArray []string) string {
 			// Reemplaza comillas y lo paso a minusculas
 			val_unit = strings.Replace(val_data, "\"", "", 2)
 			val_unit = strings.ToLower(val_unit)
-			fmt.Println("Unit: ", val_unit)
+			//fmt.Println("Unit: ", val_unit)
 			if val_unit == "b" || val_unit == "k" || val_unit == "m" {
 				band_unit = true
 			} else {
@@ -451,7 +457,7 @@ func fdisk(commandArray []string) string {
 			// Reemplaza comillas y lo paso a minusculas
 			val_type = strings.Replace(val_data, "\"", "", 2)
 			val_type = strings.ToLower(val_type)
-			fmt.Println("Type: ", val_type)
+			//fmt.Println("Type: ", val_type)
 			if val_type == "p" || val_type == "e" || val_type == "l" {
 				band_type = true
 			} else {
@@ -612,8 +618,7 @@ func mount(commandArray []string) string {
 						num := beans.Buscar_numero(val_path, lista_montajes)
 						// Letra de disco
 						letra := beans.Buscar_letra(val_path, lista_montajes)
-						// Terminacion de su Carnet (los ultimos dos digitos)
-						id := "30" + strconv.Itoa(num) + letra
+						id := "78" + strconv.Itoa(num) + letra
 
 						var n = beans.New_nodo(id, val_path, val_name, letra, num)
 						beans.Insertar(n, lista_montajes)
@@ -872,6 +877,12 @@ func rep(commandArray []string) string {
 					// Reportes validos
 					if val_name == "disk" {
 						fmt.Println(functions.Graficar_disk(aux.Direccion, val_path, "jpg"))
+
+						cmd := exec.Command("dot", "-Tpng", functions.Graficar_disk(aux.Direccion, val_path, "jpg"), "-o", val_path)
+						var err = cmd.Run()
+						if err != nil {
+							return "[ERROR-REP] Error al generar la imagen." + err.Error()
+						}
 						return "[MENSAJE-REP] Reporte generado exitosamente."
 					} else {
 						return "[ERROR-REP] Reporte no valido."
