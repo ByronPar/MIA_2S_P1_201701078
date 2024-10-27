@@ -1,0 +1,8 @@
+{
+  "/comando": {
+    "target": "http://107.20.78.66:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
