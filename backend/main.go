@@ -17,8 +17,8 @@ func main() {
 	r.HandleFunc("/comando", handlePost).Methods("POST") // RECIBIRA UNA CADENA DE TEXTO
 
 	// Start the server
-	fmt.Println("Server is listening on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	fmt.Println("Server is listening on port 8088")
+	log.Fatal(http.ListenAndServe(":8088", r))
 }
 
 func enableCors(w *http.ResponseWriter) {
