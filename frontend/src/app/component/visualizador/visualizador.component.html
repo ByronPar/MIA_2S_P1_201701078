@@ -1,0 +1,37 @@
+
+<div class="div-container" style="padding-top: 5%">
+  <!-- Primer div: Contiene el input y el botón -->
+  <h1 style="text-align:center; color: aquamarine">Visualizador deel sistema de archivos</h1>
+  <div class="search-container">
+    <textarea class="form-control" id="entradatxtarea" rows="1" [(ngModel)]="entrada"
+              name="entrada"></textarea>
+    <button class="btn btn-primary" (click)="buscar()">Buscar</button>
+  </div>
+  <br>
+  <div class="json-response">
+    <div class="file-container">
+      <div *ngFor="let item of data" class="file-item"
+           (click)="selectItem(item)"> <!-- Llama a selectItem al hacer clic -->
+        <img
+          [src]="item.is_dir ? 'favicon.ico' : ''"
+          style="width: 40px; height: 40px;">
+        <span>{{ item.name }}</span>
+      </div>
+    </div>
+
+
+  </div>
+
+  <button [disabled]="!selectedItem" class="action-button" (click)="viewContent()">
+    Ver contenido
+  </button>
+
+  <!-- Tercer div para el área de texto -->
+  <div class="bg-dark p-4 rounded m-5">
+    <div style="padding-left: 2%; padding-right: 2%; padding-bottom: 1%;">
+      <h4 style="color: white; margin-bottom: 1%;">Contenido del archivo:</h4>
+      <textarea style="color: green; background: black;" readonly class="form-control" id="salidatxtarea" rows="15"
+                [(ngModel)]="salida" name="salida"></textarea>
+    </div>
+  </div>
+</div>

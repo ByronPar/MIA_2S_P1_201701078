@@ -23,8 +23,11 @@ export class InicioComponent implements OnInit {
   ejecutar() {
     this.salida = "Enviando comandos al API por favor espere..."
     if (this.entrada != "") {
-      this.service.postEntrada(this.entrada).subscribe(async (res: any) => {
-        this.salida = res.result;
+      this.service.postEntrada(this.entrada).subscribe((res: string) => {
+        this.salida = res;
+      }, (error) => {
+        console.error("Error al enviar el comando:", error);
+        this.salida = "Error al enviar el comando.";
       });
     } else {
       alert("Archivo de entrada vacio...")

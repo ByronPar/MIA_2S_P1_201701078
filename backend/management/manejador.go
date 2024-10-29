@@ -21,13 +21,13 @@ var lista_montajes = beans.New_lista()
 var strRespuesta = ""
 
 func Analizar(strInput string) string {
-
 	resultado := strings.Split(strInput, "\n")
-
+	strRespuesta = ""
 	//  ejecuta cada linea ingresada
 	for _, comando := range resultado {
 		split_comando(comando)
 	}
+
 	return strRespuesta
 }
 

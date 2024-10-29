@@ -1,0 +1,84 @@
+
+
+.file-item:hover {
+  background-color: #e0e0e0; /* Color de fondo al pasar el mouse */
+}
+
+.file-item.selected {
+  background-color: #d1e7dd; /* Color de fondo para el elemento seleccionado */
+}
+
+.action-button {
+  margin-top: 10px; /* Espacio entre la lista y el botón */
+}
+
+
+
+.json-response {
+  display: flex; /* Permitir que el contenedor sea flexible */
+  justify-content: flex-end; /* Alinear elementos hacia la derecha */
+  background-color: #f0f0f0;
+}
+
+.file-container {
+  display: flex; /* Usar flexbox para alinear elementos en fila */
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan en múltiples filas */
+  justify-content: flex-end; /* Alinear elementos hacia la derecha */
+}
+
+.file-item {
+  margin: 10px; /* Espacio entre elementos */
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  cursor: pointer;
+}
+
+
+
+/* Animación para mover los elementos */
+@keyframes slide {
+  0% {
+    transform: translateX(100%); /* Comienza desde la derecha */
+  }
+  100% {
+    transform: translateX(-100%); /* Termina a la izquierda */
+  }
+}
+
+
+
+.div-container {
+  padding: 20px;
+}
+
+/* Primer div: Contiene el input y el botón */
+.search-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Agrega sombra para darle profundidad */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el input y el botón */
+}
+
+.search-input {
+  padding: 10px;
+  border-radius: 20px; /* Esquinas redondeadas para el input */
+  border: 1px solid #ccc;
+  flex: 1; /* Ocupa todo el espacio disponible */
+}
+
+button {
+  padding: 10px 20px;
+}
+
+
+
+
+.file-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+

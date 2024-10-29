@@ -4,9 +4,12 @@ import (
 	"backend/beans"
 	"bytes"
 	"encoding/gob"
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -14,6 +17,13 @@ import (
 
 /*--------------------------Variables globales--------------------------*/
 var graphDot = ""
+
+// Estructura para almacenar información de archivos y carpetas
+type FileInfo struct {
+	Name  string `json:"name"`
+	IsDir bool   `json:"is_dir"`
+	Path  string `json:"path"` // Nuevo campo para la ruta completa
+}
 
 /*--------------------------Metodos o Funciones--------------------------*/
 
@@ -1996,6 +2006,34 @@ func Graficar_disk(direccion string, destino string, extension string) string {
 	} else {
 		return "[ERROR-REP] Disco vacio."
 	}
+}
+
+// Función para listar archivos y carpetas en formato JSON
+func ListFilesAndDirs(path string) (string, error) {
+	var files []FileInfo
+	// Lee los archivos y carpetas en el directorio
+	items, err := ioutil.ReadDir(path)
+	if err != nil {
+		return "", err
+	}
+
+	// Recorre cada ítem y lo añade a la lista
+	for _, item := range items {
+		fileInfo := FileInfo{
+			Name:  item.Name(),
+			IsDir: item.IsDir(),
+			Path:  filepath.Join(path, item.Name()), // Construye la ruta completa
+		}
+		files = append(files, fileInfo)
+	}
+
+	// Convierte la lista a formato JSON
+	jsonData, err := json.MarshalIndent(files, "", "  ")
+	if err != nil {
+		return "", err
+	}
+
+	return string(jsonData), nil
 }
 
 /*--------------------------/Metodos o Funciones--------------------------*/
