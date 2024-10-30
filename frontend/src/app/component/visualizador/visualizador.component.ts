@@ -25,7 +25,7 @@ export class VisualizadorComponent implements OnInit {
 
   ngOnInit(): void {
     // Llama a la API con un 'path' predeterminado
-    this.entrada = this.entrada || '/home/byron/';
+    this.entrada = this.entrada || '/home/ubuntu/';
     this.buscar(); // Realiza la búsqueda inicial
   }
 
